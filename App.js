@@ -1,8 +1,12 @@
 import React from 'react';
-// import { TouchableText, HelloWorld } from './src/Examples';
+import { NativeRouter } from 'react-router-native';
 
 import Main from './src/components/Main.jsx';
 
-const App = () => <Main />;
+const App = () => (
+  <NativeRouter>
+    <Main />
+  </NativeRouter>
+);
 
 export default App;

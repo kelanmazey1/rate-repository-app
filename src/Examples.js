@@ -9,7 +9,7 @@ import {
 
 export const HelloWorld = (props) => <Text>{props.children}</Text>;
 
-export const TouchableText = (props) => (
+export const TouchableText = () => (
   <TouchableWithoutFeedback
     onPress={() => Alert.alert('the text was pressed!')}
   >

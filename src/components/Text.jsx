@@ -13,8 +13,14 @@ const styles = StyleSheet.create({
   colorTextSecondary: {
     color: theme.colors.textSecondary,
   },
+  colorTextAppBar: {
+    color: theme.colors.appBarText,
+  },
   colorPrimary: {
     color: theme.colors.primary,
+  },
+  fontSizeHeading: {
+    fontSize: theme.fontSizes.heading,
   },
   fontSizeSubheading: {
     fontSize: theme.fontSizes.subheading,
@@ -24,11 +30,13 @@ const styles = StyleSheet.create({
   },
 });
 /* eslint-disable-next-line */
-const Text = ({ color, fontSize, fontWeight, style, ...props}) => {
+const Text = ({ color, backgroundColor, fontSize, fontWeight, style, ...props}) => {
   const textStyle = [
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
+    color === 'appBarText' && styles.colorTextAppBar,
     color === 'primary' && styles.colorPrimary,
+    fontSize === 'heading' && styles.fontSizeHeading,
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,
     style,
