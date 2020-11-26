@@ -16,22 +16,23 @@ const styles = StyleSheet.create({
 const tabs = [
   {
     title: 'Repositories',
+    link: '/',
   },
   {
     title: 'Sign In',
     link: '/signin',
   },
+
 ];
 
 const Main = () => (
   <View style={styles.container}>
     <AppBar tabs={tabs} />
     <Switch>
-
       <Route exact path="/">
         <RepositoryList />
       </Route>
-      <Route path="/signin" component={SignIn} />
+      <Route exact path="/signin" component={SignIn} />
       <Redirect to="/" />
     </Switch>
   </View>

@@ -22,6 +22,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
   },
+  image: {
+    flex: 1,
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+    alignSelf: 'flex-start',
+  },
+  titleAndDescription: {
+    flex: 5,
+    justifyContent: 'flex-start',
+    marginHorizontal: 10,
+  },
   languageSign: {
     backgroundColor: '#dbbe00',
     borderRadius: 5,
@@ -60,23 +72,8 @@ const RepositoryItem = ({ item }) => {
   return (
     <View style={styles.container}>
       <View style={styles.cardRow}>
-        <Image
-          source={{
-            uri: ownerAvatarUrl,
-          }}
-          style={{
-            flex: 1,
-            height: 50,
-            width: 50,
-            borderRadius: 10,
-            alignSelf: 'flex-start',
-          }}
-        />
-        <View style={{
-          flex: 5,
-          justifyContent: 'flex-start',
-          marginHorizontal: 10,
-        }}>
+        <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
+        <View style={styles.titleAndDescription}>
           <Text fontSize='subheading' fontWeight='bold'>
               {fullName}
           </Text>

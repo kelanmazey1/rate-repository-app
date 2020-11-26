@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 
@@ -13,29 +13,33 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight + 5,
     paddingHorizontal: 10,
     paddingBottom: 15,
-    marginBottom: 10,
     backgroundColor: theme.colors.appBar,
+  },
+  scrollView: {
+    flexDirection: 'row',
+    flexGrow: 1,
+    justifyContent: 'space-between',
+  },
+  tab: {
+    marginHorizontal: 10,
   },
 });
 
-const AppBarTab = (props) => {
-  return (
-      <View>
-        <Text fontSize='heading' fontWeight='bold'>{props.tab.title}</Text>
-      </View>
-  );
-};
+const AppBarTab = (props) => (
+  <View style={styles.tab}>
+    <Text fontSize='heading' fontWeight='bold'>{props.tab.title}</Text>
+  </View>
+);
 
 const AppBar = (props) => (
   <View style={styles.container}>
-    {props.tabs.map((tab) => (
-      tab.link
-        ? (
+    <ScrollView horizontal contentContainerStyle={styles.scrollView}>
+        {props.tabs.map((tab) => (
           <Link key={tab.title} to={tab.link}>
             <AppBarTab tab={tab} />
-          </Link>)
-        : <AppBarTab key={tab.title} tab={tab} />
-    ))}
+          </Link>
+        ))}
+    </ScrollView>
   </View>
 );
 
