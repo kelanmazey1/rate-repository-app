@@ -4,6 +4,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
+import useSignIn from '../hooks/useSignIn';
 import Text from './Text.jsx';
 import FormikTextInput from './FormikTextInput.jsx';
 
@@ -59,7 +60,16 @@ const SignIn = () => {
       .required('Password required'),
   });
 
-  const onSubmit = (values) => console.log(values);
+  const [signIn, result] = useSignIn();
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    try {
+      await signIn({ username, password });
+      console.log('the try block actually worked', result.data);
+    } catch (e) {
+      console.error('something went wrong', e);
+    }
+  };
 
   return (
     <Formik
