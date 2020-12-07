@@ -1,11 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
-import { useQuery, useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/react-hooks';
 import Constants from 'expo-constants';
 
 import AuthStorageContext from '../contexts/AuthStorageContext';
-import { CURRENT_USER } from '../graphql/queries';
 import Text from './Text.jsx';
 
 import theme from '../theme';
