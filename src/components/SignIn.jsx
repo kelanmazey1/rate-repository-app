@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { useHistory } from 'react-router-native';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -60,17 +61,19 @@ const SignIn = () => {
       .required('Password required'),
   });
 
-  const [signIn, result] = useSignIn();
+  const [signIn] = useSignIn();
+  const history = useHistory();
+
   const onSubmit = async (values) => {
     const { username, password } = values;
+
     try {
-      await signIn({ username, password });
-      console.log('the try block actually worked', result.data);
+      const { data } = await signIn({ username, password });
+      history.push('/');
     } catch (e) {
-      console.error('something went wrong', e);
+      console.log(e);
     }
   };
-
   return (
     <Formik
       initialValues={initialFormValues}

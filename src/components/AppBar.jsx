@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import Constants from 'expo-constants';
 
+import AuthStorageContext from '../contexts/AuthStorageContext';
+import { CURRENT_USER } from '../graphql/queries';
 import Text from './Text.jsx';
 
 import theme from '../theme';
@@ -31,16 +34,51 @@ const AppBarTab = (props) => (
   </View>
 );
 
-const AppBar = (props) => (
-  <View style={styles.container}>
-    <ScrollView horizontal contentContainerStyle={styles.scrollView}>
-        {props.tabs.map((tab) => (
-          <Link key={tab.title} to={tab.link}>
-            <AppBarTab tab={tab} />
-          </Link>
-        ))}
-    </ScrollView>
-  </View>
-);
+const AppBar = () => {
+  const authStorage = useContext(AuthStorageContext);
+  const client = useApolloClient();
+
+  const tabs = [
+    {
+      title: 'Repositories',
+      link: '/',
+    },
+    // token should always be in context but checking with query to be sure
+    authStorage.auth
+      ? {
+        title: 'Sign Out',
+        link: '/',
+        onPress: async () => {
+          await authStorage.manage.removeAccessToken();
+          await client.resetStore();
+          await authStorage.setAuth(false);
+        },
+      }
+      : {
+        title: 'Sign In',
+        link: '/signin',
+      },
+
+  ];
+  return (
+    <View style={styles.container}>
+      <ScrollView horizontal contentContainerStyle={styles.scrollView}>
+          {tabs.map((tab) => (
+            <Link
+              key={tab.title}
+              to={tab.link}
+              onPress={
+                tab.onPress
+                  ? tab.onPress
+                  : undefined
+              }
+            >
+              <AppBarTab tab={tab} />
+            </Link>
+          ))}
+      </ScrollView>
+    </View>
+  );
+};
 
 export default AppBar;

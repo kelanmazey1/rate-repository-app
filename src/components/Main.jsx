@@ -13,21 +13,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const tabs = [
-  {
-    title: 'Repositories',
-    link: '/',
-  },
-  {
-    title: 'Sign In',
-    link: '/signin',
-  },
-
-];
-
 const Main = () => (
   <View style={styles.container}>
-    <AppBar tabs={tabs} />
+    <AppBar />
     <Switch>
       <Route exact path="/">
         <RepositoryList />
