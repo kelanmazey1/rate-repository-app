@@ -11,15 +11,15 @@ const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
 
 const App = () => {
-  const [auth, setAuth] = React.useState(false);
+  const [authState, setAuthState] = React.useState(false);
 
   return (
   <NativeRouter>
     <ApolloProvider client={apolloClient}>
       <AuthStorageContext.Provider value={{
         manage: authStorage,
-        auth,
-        setAuth,
+        authState,
+        setAuthState,
       }}>
         <Main />
       </AuthStorageContext.Provider>

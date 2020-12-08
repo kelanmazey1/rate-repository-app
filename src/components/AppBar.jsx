@@ -42,15 +42,15 @@ const AppBar = () => {
       title: 'Repositories',
       link: '/',
     },
-    // token should always be in context but checking with query to be sure
-    authStorage.auth
+    // use context to establish if user is signed in
+    authStorage.authState
       ? {
         title: 'Sign Out',
         link: '/',
         onPress: async () => {
           await authStorage.manage.removeAccessToken();
           await client.resetStore();
-          await authStorage.setAuth(false);
+          await authStorage.setAuthState(false);
         },
       }
       : {
