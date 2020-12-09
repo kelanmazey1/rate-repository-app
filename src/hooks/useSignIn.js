@@ -18,7 +18,7 @@ const useSignIn = () => {
     });
     await authStorage.setAuthState(true);
     await authStorage.manage.setAccessToken(authResult.data.authorize.accessToken);
-    client.resetStore();
+    await client.resetStore();
     return authResult;
   };
   return [signIn, result];

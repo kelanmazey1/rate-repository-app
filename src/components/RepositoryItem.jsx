@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const addKAbbreviation = (value) => {
+export const addKAbbreviation = (value) => {
   if (value >= 1000) {
     const returnValue = Math.round(((value / 1000) + Number.EPSILON) * 10) / 10;
     return `${returnValue}k`;
@@ -52,9 +52,9 @@ const addKAbbreviation = (value) => {
   return value;
 };
 
-const StatsDisplay = ({ value, text }) => (
+const StatsDisplay = ({ value, text, testID }) => (
   <View style={{ alignItems: 'center' }}>
-    <Text fontWeight='bold'>
+    <Text fontWeight='bold' testID={testID}>
       {addKAbbreviation(value)}
     </Text>
     <Text>
@@ -72,15 +72,15 @@ const RepositoryItem = ({ item }) => {
   return (
     <View style={styles.container}>
       <View style={styles.cardRow}>
-        <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
+        <Image testID='repoImage'source={{ uri: ownerAvatarUrl }} style={styles.image} />
         <View style={styles.titleAndDescription}>
-          <Text fontSize='subheading' fontWeight='bold'>
+          <Text testID='repoName' fontSize='subheading' fontWeight='bold'>
               {fullName}
           </Text>
-          <Text fontSize='subheading'>
+          <Text testID='repoDescription' fontSize='subheading'>
               {description}
           </Text>
-            <Text fontSize='subheading' fontWeight='bold' style={styles.languageSign}>
+            <Text testID='repoLanguage' fontSize='subheading' fontWeight='bold' style={styles.languageSign}>
                 {item.language}
             </Text>
         </View>
@@ -90,10 +90,10 @@ const RepositoryItem = ({ item }) => {
         {
           justifyContent: 'space-evenly',
         }]}>
-        <StatsDisplay value={item.stargazersCount} text='Stars' />
-        <StatsDisplay value={item.forksCount} text='Forks' />
-        <StatsDisplay value={item.ratingAverage} text='Rating' />
-        <StatsDisplay value={item.reviewCount} text='Reviews' />
+        <StatsDisplay testID='stargazers' value={item.stargazersCount} text='Stars' />
+        <StatsDisplay testID='forks' value={item.forksCount} text='Forks' />
+        <StatsDisplay testID='rating' value={item.ratingAverage} text='Rating' />
+        <StatsDisplay testID='review' value={item.reviewCount} text='Reviews' />
       </View>
     </View>
   );

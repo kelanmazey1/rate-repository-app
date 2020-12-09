@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignIn = () => {
+export const SignInContainer = ({ onSubmit }) => {
   const initialFormValues = {
     username: '',
     password: '',
@@ -61,6 +61,48 @@ const SignIn = () => {
       .required('Password required'),
   });
 
+  return (
+      <Formik
+        initialValues={initialFormValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+        >
+        {({ handleSubmit, isValid, dirty }) => (
+          <View style={styles.container}>
+            <View style={styles.signInForm}>
+              <FormikTextInput
+                testID='usernameField'
+                style={[styles.signInFormItem]}
+                name='username'
+                placeholder='username'
+              />
+              <FormikTextInput
+                testID='passwordField'
+                style={[styles.signInFormItem]}
+                secureTextEntry={true}
+                name='password'
+                placeholder='password'
+              />
+              <TouchableOpacity
+                testID='submitButton'
+                onPress={handleSubmit}
+                disabled={!dirty || !isValid}
+              >
+                <View style={[
+                  styles.submitButton,
+                  { opacity: (!dirty || !isValid) ? 0.3 : 0.9 },
+                ]}>
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </Formik>
+  );
+};
+
+const SignIn = () => {
   const [signIn] = useSignIn();
   const history = useHistory();
 
@@ -74,42 +116,11 @@ const SignIn = () => {
       console.log(e);
     }
   };
+
   return (
-    <Formik
-      initialValues={initialFormValues}
+    <SignInContainer
       onSubmit={onSubmit}
-      validationSchema={validationSchema}
-      >
-      {({ handleSubmit, isValid, dirty }) => (
-        <View style={styles.container}>
-          <View style={styles.signInForm}>
-            <FormikTextInput
-              style={[styles.signInFormItem]}
-              name='username'
-              placeholder='username'
-            />
-            <FormikTextInput
-              style={[styles.signInFormItem]}
-              secureTextEntry={true}
-              name='password'
-              placeholder='password'
-            />
-            <TouchableOpacity
-              onPress={handleSubmit}
-              disabled={!dirty || !isValid}
-            >
-              <View style={[
-                styles.submitButton,
-                { opacity: (!dirty || !isValid) ? 0.3 : 0.9 },
-              ]}>
-                <Text style={styles.submitButtonText}>Submit</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      )}
-    </Formik>
-  );
+    />);
 };
 
 export default SignIn;
