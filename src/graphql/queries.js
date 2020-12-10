@@ -52,6 +52,20 @@ export const GET_REPO = gql`
       ratingAverage,
       ownerAvatarUrl,
       description
+      reviews {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `;

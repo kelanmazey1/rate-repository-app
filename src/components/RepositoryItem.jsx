@@ -4,24 +4,14 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import { useHistory } from 'react-router-native';
 import * as Linking from 'expo-linking';
 
-import theme from '../theme';
 import Text from './Text.jsx';
+import Container from './Container.jsx';
 
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    borderRadius: 15,
-    borderColor: '#002e47',
-    borderWidth: 1,
-    backgroundColor: '#d4d4d4',
-    marginHorizontal: 5,
-    marginTop: 2.5,
-  },
   cardRow: {
     display: 'flex',
     flexDirection: 'row',
@@ -89,7 +79,7 @@ const RepositoryItem = ({ item, inFocus }) => {
   // const goToUrl = () => console.log('the button was pressed');
 
   return (
-    <View style={styles.container}>
+    <Container>
       <TouchableOpacity onPress={() => history.push(`/repositories/${id}`)}>
         <View>
           <View style={styles.cardRow}>
@@ -127,7 +117,7 @@ const RepositoryItem = ({ item, inFocus }) => {
         </View>
       )
     }
-    </View>
+    </Container>
   );
 };
 
