@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { format } from 'date-fns';
 
 import useSingleRepository from '../hooks/useSingleRepository';
 
@@ -48,7 +49,10 @@ const RepositoryInfo = (props) => {
   return <RepositoryItem item={props.repository} inFocus={true} />;
 };
 
-const ReviewItem = ({ review }) => (
+const ReviewItem = ({ review }) => {
+  const parsedDate = new Date(Date.parse(review.createdAt));
+
+  return (
   <Container style={{ backgroundColor: '#e0e0e0' }}>
     <View style={[styles.infoSection]}>
       <View style={styles.ratingContainer}>
@@ -56,14 +60,14 @@ const ReviewItem = ({ review }) => (
       </View>
       <View style={[styles.userAndDate]}>
       <Text fontWeight='bold'>{review.user.username}</Text>
-        <Text>{review.createdAt}</Text>
+        <Text>{format(parsedDate, "dd'.'mm'.'yyyy")}</Text>
       </View>
     </View>
     <View style={styles.textArea}>
       <Text>{review.text}</Text>
     </View>
     </Container>
-);
+)};
 
 const SingleRepository = (props) => {
   const { repository, loading } = useSingleRepository(props.match.params.id);
