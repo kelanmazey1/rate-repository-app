@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
+  listContainer: {
+    margin: 1,
+  },
 });
 
 const ItemSeparator = () => <View style={styles.separator} />;
@@ -18,14 +21,16 @@ export const RepositoryListContainer = ({ repositories }) => {
     : [];
 
   return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      // other props
-      renderItem={({ item }) => (
-        <RepositoryItem item={item} />
-      )}
-    />
+    <View>
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        // other props
+        renderItem={({ item }) => (
+          <RepositoryItem item={item} />
+        )}
+      />
+    </View>
   );
 };
 

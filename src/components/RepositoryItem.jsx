@@ -1,11 +1,15 @@
 import React from 'react';
-
 import {
   View,
   StyleSheet,
   Image,
+  TouchableOpacity,
+  Button,
 } from 'react-native';
+import { useHistory } from 'react-router-native';
+import * as Linking from 'expo-linking';
 
+import theme from '../theme';
 import Text from './Text.jsx';
 
 const styles = StyleSheet.create({
@@ -13,9 +17,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     borderRadius: 15,
     borderColor: '#002e47',
-    borderWidth: 2,
+    borderWidth: 1,
     backgroundColor: '#d4d4d4',
     marginHorizontal: 5,
+    marginTop: 2.5,
   },
   cardRow: {
     display: 'flex',
@@ -42,6 +47,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 4,
   },
+  button: {
+    borderRadius: 5,
+    alignItems: 'center',
+    backgroundColor: '#0751e6',
+    padding: 10,
+    marginHorizontal: 5,
+    flex: 1,
+  },
 });
 
 export const addKAbbreviation = (value) => {
@@ -63,38 +76,57 @@ const StatsDisplay = ({ value, text, testID }) => (
   </View>
 );
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, inFocus }) => {
+  const history = useHistory();
   const {
     fullName,
     ownerAvatarUrl,
     description,
+    id,
+    url,
   } = item;
+
+  // const goToUrl = () => console.log('the button was pressed');
+
   return (
     <View style={styles.container}>
-      <View style={styles.cardRow}>
-        <Image testID='repoImage'source={{ uri: ownerAvatarUrl }} style={styles.image} />
-        <View style={styles.titleAndDescription}>
-          <Text testID='repoName' fontSize='subheading' fontWeight='bold'>
-              {fullName}
-          </Text>
-          <Text testID='repoDescription' fontSize='subheading'>
-              {description}
-          </Text>
-            <Text testID='repoLanguage' fontSize='subheading' fontWeight='bold' style={styles.languageSign}>
-                {item.language}
-            </Text>
+      <TouchableOpacity onPress={() => history.push(`/repositories/${id}`)}>
+        <View>
+          <View style={styles.cardRow}>
+            <Image testID='repoImage'source={{ uri: ownerAvatarUrl }} style={styles.image} />
+            <View style={styles.titleAndDescription}>
+              <Text testID='repoName' fontSize='subheading' fontWeight='bold'>
+                  {fullName}
+              </Text>
+              <Text testID='repoDescription' fontSize='subheading'>
+                  {description}
+              </Text>
+                <Text testID='repoLanguage' fontSize='subheading' fontWeight='bold' style={styles.languageSign}>
+                    {item.language}
+                </Text>
+            </View>
+          </View>
+          <View style={[
+            styles.cardRow,
+            {
+              justifyContent: 'space-evenly',
+            }]}>
+            <StatsDisplay testID='stargazers' value={item.stargazersCount} text='Stars' />
+            <StatsDisplay testID='forks' value={item.forksCount} text='Forks' />
+            <StatsDisplay testID='rating' value={item.ratingAverage} text='Rating' />
+            <StatsDisplay testID='review' value={item.reviewCount} text='Reviews' />
+          </View>
         </View>
-      </View>
-      <View style={[
-        styles.cardRow,
-        {
-          justifyContent: 'space-evenly',
-        }]}>
-        <StatsDisplay testID='stargazers' value={item.stargazersCount} text='Stars' />
-        <StatsDisplay testID='forks' value={item.forksCount} text='Forks' />
-        <StatsDisplay testID='rating' value={item.ratingAverage} text='Rating' />
-        <StatsDisplay testID='review' value={item.reviewCount} text='Reviews' />
-      </View>
+      </TouchableOpacity>
+    {
+      inFocus && (
+        <View style={[styles.cardRow, { justifyContent: 'center' }]}>
+          <TouchableOpacity style={styles.button} title="Open In Github" onPress={() => Linking.openURL(url)}>
+            <Text color='primary' fontWeight='bold'>Open in GitHub</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
     </View>
   );
 };
