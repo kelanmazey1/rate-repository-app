@@ -10,6 +10,7 @@ import AppBar from './AppBar.jsx';
 import SignIn from './SignIn.jsx';
 import RepositoryList from './RepositoryList.jsx';
 import SingleRepository from './SingleRepository.jsx';
+import CreateReview from './CreateReview.jsx';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +27,7 @@ const Main = () => (
         <RepositoryList />
       </Route>
       <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/createreview" component={CreateReview} />
       <Route exact path="/repositories/:id" render={(props) => <SingleRepository {...props} />} />
       <Redirect to="/" />
     </Switch>

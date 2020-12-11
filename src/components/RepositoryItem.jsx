@@ -8,6 +8,7 @@ import {
 import { useHistory } from 'react-router-native';
 import * as Linking from 'expo-linking';
 
+import Button from './SubmitButton.jsx';
 import Text from './Text.jsx';
 import Container from './Container.jsx';
 
@@ -36,14 +37,6 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 10,
     padding: 4,
-  },
-  button: {
-    borderRadius: 5,
-    alignItems: 'center',
-    backgroundColor: '#0751e6',
-    padding: 10,
-    marginHorizontal: 5,
-    flex: 1,
   },
 });
 
@@ -80,7 +73,10 @@ const RepositoryItem = ({ item, inFocus }) => {
 
   return (
     <Container>
-      <TouchableOpacity onPress={() => history.push(`/repositories/${id}`)}>
+      <TouchableOpacity
+        onPress={() => history.push(`/repositories/${id}`)}
+        disabled={inFocus}
+      >
         <View>
           <View style={styles.cardRow}>
             <Image testID='repoImage'source={{ uri: ownerAvatarUrl }} style={styles.image} />
@@ -91,9 +87,10 @@ const RepositoryItem = ({ item, inFocus }) => {
               <Text testID='repoDescription' fontSize='subheading'>
                   {description}
               </Text>
+                {item.language && (
                 <Text testID='repoLanguage' fontSize='subheading' fontWeight='bold' style={styles.languageSign}>
                     {item.language}
-                </Text>
+                </Text>)}
             </View>
           </View>
           <View style={[
@@ -111,9 +108,9 @@ const RepositoryItem = ({ item, inFocus }) => {
     {
       inFocus && (
         <View style={[styles.cardRow, { justifyContent: 'center' }]}>
-          <TouchableOpacity style={styles.button} title="Open In Github" onPress={() => Linking.openURL(url)}>
+          <Button style={{ flex: 1 }}title="Open In Github" onPress={() => Linking.openURL(url)}>
             <Text color='primary' fontWeight='bold'>Open in GitHub</Text>
-          </TouchableOpacity>
+          </Button>
         </View>
       )
     }

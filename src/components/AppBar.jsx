@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
 import { useApolloClient } from '@apollo/react-hooks';
@@ -34,35 +34,56 @@ const AppBarTab = (props) => (
 );
 
 const AppBar = () => {
-  const authStorage = useContext(AuthStorageContext);
-  const client = useApolloClient();
-
-  const tabs = [
+  const [appBarTabs, setAppBarTabs] = useState([
     {
       title: 'Repositories',
       link: '/',
     },
-    // use context to establish if user is signed in
-    authStorage.authState
-      ? {
-        title: 'Sign Out',
-        link: '/',
-        onPress: async () => {
-          await authStorage.manage.removeAccessToken();
-          await client.resetStore();
-          await authStorage.setAuthState(false);
-        },
-      }
-      : {
-        title: 'Sign In',
-        link: '/signin',
-      },
+  ]);
+  const authStorage = useContext(AuthStorageContext);
+  const client = useApolloClient();
 
+  const signedInTabs = [
+    {
+      title: 'Create Review',
+      link: '/createreview',
+    },
+    {
+      title: 'Sign Out',
+      link: '/',
+      onPress: async () => {
+        await authStorage.manage.removeAccessToken();
+        await client.resetStore();
+        await authStorage.setAuthState(false);
+      },
+    },
   ];
+
+  const signedOutTab = {
+    title: 'Sign In',
+    link: '/signin',
+  };
+
+  useEffect(() => {
+    if (authStorage.authState) {
+      setAppBarTabs(
+        appBarTabs
+          .filter((tab) => tab.title === 'Repositories')
+          .concat(signedInTabs),
+      );
+      return;
+    }
+    setAppBarTabs(
+      appBarTabs
+        .filter((tab) => tab.title === 'Repositories')
+        .concat(signedOutTab),
+    );
+  }, [authStorage.authState]);
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal contentContainerStyle={styles.scrollView}>
-          {tabs.map((tab) => (
+          {appBarTabs.map((tab) => (
             <Link
               key={tab.title}
               to={tab.link}

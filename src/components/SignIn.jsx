@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useHistory } from 'react-router-native';
 
 import { Formik } from 'formik';
@@ -7,6 +7,7 @@ import * as yup from 'yup';
 
 import useSignIn from '../hooks/useSignIn';
 import Text from './Text.jsx';
+import Button from './SubmitButton.jsx';
 import FormikTextInput from './FormikTextInput.jsx';
 
 import theme from '../theme';
@@ -25,14 +26,7 @@ const styles = StyleSheet.create({
   },
   signInFormItem: {
     backgroundColor: theme.colors.primary,
-    borderRadius: 10,
-    padding: 5,
-    margin: 5,
-  },
-  submitButton: {
-    backgroundColor: '#056dff',
-    borderRadius: 10,
-    alignItems: 'center',
+    borderRadius: 5,
     padding: 5,
     margin: 5,
   },
@@ -83,18 +77,16 @@ export const SignInContainer = ({ onSubmit }) => {
                 name='password'
                 placeholder='password'
               />
-              <TouchableOpacity
-                testID='submitButton'
-                onPress={handleSubmit}
-                disabled={!dirty || !isValid}
-              >
-                <View style={[
-                  styles.submitButton,
-                  { opacity: (!dirty || !isValid) ? 0.3 : 0.9 },
-                ]}>
+              <View style={
+                  { opacity: (!dirty || !isValid) ? 0.3 : 0.9 }}>
+                <Button
+                  testID='submitButton'
+                  onPress={handleSubmit}
+                  disabled={!dirty || !isValid}
+                >
                   <Text style={styles.submitButtonText}>Submit</Text>
-                </View>
-              </TouchableOpacity>
+                </Button>
+              </View>
             </View>
           </View>
         )}

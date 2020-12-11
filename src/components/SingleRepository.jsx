@@ -67,7 +67,8 @@ const ReviewItem = ({ review }) => {
       <Text>{review.text}</Text>
     </View>
     </Container>
-)};
+  );
+};
 
 const SingleRepository = (props) => {
   const { repository, loading } = useSingleRepository(props.match.params.id);

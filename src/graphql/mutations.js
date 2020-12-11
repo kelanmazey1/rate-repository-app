@@ -8,3 +8,22 @@ export const AUTHORIZE_USER = gql`
     }
   }
 `;
+
+export const CREATE_REVIEW = gql`
+mutation CreateReview($repositoryName: String!, $ownerName: String!, $rating: Int!, $text: String){
+  createReview(review: {
+    repositoryName: $repositoryName,
+    ownerName: $ownerName,
+   rating: $rating,
+    text: $text
+  }) {
+    repository {
+      id,
+    },
+    user {
+      id,
+      username
+    }
+  }
+}
+`;
