@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   scrollView: {
     flexDirection: 'row',
     flexGrow: 1,
-    justifyContent: 'space-between',
   },
   tab: {
     marginHorizontal: 10,
@@ -59,24 +58,22 @@ const AppBar = () => {
     },
   ];
 
-  const signedOutTab = {
-    title: 'Sign In',
-    link: '/signin',
-  };
+  const signedOutTabs = [
+    {
+      title: 'Sign In',
+      link: '/signin',
+    },
+    {
+      title: 'Sign Up',
+      link: '/signup',
+    },
+  ];
 
   useEffect(() => {
-    if (authStorage.authState) {
-      setAppBarTabs(
-        appBarTabs
-          .filter((tab) => tab.title === 'Repositories')
-          .concat(signedInTabs),
-      );
-      return;
-    }
     setAppBarTabs(
       appBarTabs
         .filter((tab) => tab.title === 'Repositories')
-        .concat(signedOutTab),
+        .concat(authStorage.authState ? signedInTabs : signedOutTabs),
     );
   }, [authStorage.authState]);
 

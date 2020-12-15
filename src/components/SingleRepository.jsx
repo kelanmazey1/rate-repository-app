@@ -53,7 +53,7 @@ const ReviewItem = ({ review }) => {
   const parsedDate = new Date(Date.parse(review.createdAt));
 
   return (
-  <Container style={{ backgroundColor: '#e0e0e0' }}>
+  <Container type='card' style={{ backgroundColor: '#e0e0e0' }}>
     <View style={[styles.infoSection]}>
       <View style={styles.ratingContainer}>
         <Text fontWeight='bold' style={[styles.rating]}>{review.rating}</Text>

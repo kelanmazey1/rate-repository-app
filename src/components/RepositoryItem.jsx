@@ -72,7 +72,7 @@ const RepositoryItem = ({ item, inFocus }) => {
   // const goToUrl = () => console.log('the button was pressed');
 
   return (
-    <Container>
+    <Container type='card'>
       <TouchableOpacity
         onPress={() => history.push(`/repositories/${id}`)}
         disabled={inFocus}

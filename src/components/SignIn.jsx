@@ -8,31 +8,15 @@ import * as yup from 'yup';
 import useSignIn from '../hooks/useSignIn';
 import Text from './Text.jsx';
 import Button from './SubmitButton.jsx';
+import Container from './Container.jsx';
 import FormikTextInput from './FormikTextInput.jsx';
 
-import theme from '../theme';
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.backdrop,
-    alignContent: 'center',
-  },
   signInForm: {
     margin: 20,
     padding: 5,
     alignContent: 'center',
     justifyContent: 'space-between',
-  },
-  signInFormItem: {
-    backgroundColor: theme.colors.primary,
-    borderRadius: 5,
-    padding: 5,
-    margin: 5,
-  },
-  submitButtonText: {
-    fontWeight: theme.fontWeights.bold,
-    color: 'white',
   },
 });
 
@@ -45,13 +29,13 @@ export const SignInContainer = ({ onSubmit }) => {
   const validationSchema = yup.object().shape({
     username: yup
       .string()
-      .min(4, 'Username must be minumum 4 characters')
-      .max(8, 'Username must be maximum 8 characters')
+      .min(3, 'Username must be minumum 3 characters')
+      .max(30, 'Username must be maximum 30 characters')
       .required('Username required'),
     password: yup
       .string()
-      .min(4, 'Password must be minumum 4 characters')
-      .max(8, 'Password must be maximum 8 characters')
+      .min(5, 'Password must be minumum 5 characters')
+      .max(50, 'Password must be maximum 50 characters')
       .required('Password required'),
   });
 
@@ -62,33 +46,31 @@ export const SignInContainer = ({ onSubmit }) => {
         validationSchema={validationSchema}
         >
         {({ handleSubmit, isValid, dirty }) => (
-          <View style={styles.container}>
-            <View style={styles.signInForm}>
-              <FormikTextInput
-                testID='usernameField'
-                style={[styles.signInFormItem]}
-                name='username'
-                placeholder='username'
-              />
-              <FormikTextInput
-                testID='passwordField'
-                style={[styles.signInFormItem]}
-                secureTextEntry={true}
-                name='password'
-                placeholder='password'
-              />
-              <View style={
-                  { opacity: (!dirty || !isValid) ? 0.3 : 0.9 }}>
-                <Button
-                  testID='submitButton'
-                  onPress={handleSubmit}
-                  disabled={!dirty || !isValid}
-                >
-                  <Text style={styles.submitButtonText}>Submit</Text>
-                </Button>
-              </View>
+          <Container type='form'>
+            <FormikTextInput
+              testID='usernameField'
+              style={[styles.signInFormItem]}
+              name='username'
+              placeholder='Username'
+            />
+            <FormikTextInput
+              testID='passwordField'
+              style={[styles.signInFormItem]}
+              secureTextEntry={true}
+              name='password'
+              placeholder='Password'
+            />
+            <View style={
+                { opacity: (!dirty || !isValid) ? 0.3 : 0.9 }}>
+              <Button
+                testID='submitButton'
+                onPress={handleSubmit}
+                disabled={!dirty || !isValid}
+              >
+                <Text fontWeight='bold' color='buttonText'>Submit</Text>
+              </Button>
             </View>
-          </View>
+          </Container>
         )}
       </Formik>
   );

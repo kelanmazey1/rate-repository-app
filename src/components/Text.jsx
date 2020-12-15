@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.main,
     fontWeight: theme.fontWeights.normal,
   },
+  colorTextButton: {
+    color: theme.colors.buttonText,
+  },
   colorTextSecondary: {
     color: theme.colors.textSecondary,
   },
@@ -33,6 +36,7 @@ const styles = StyleSheet.create({
 const Text = ({ color, backgroundColor, fontSize, fontWeight, style, ...props}) => {
   const textStyle = [
     styles.text,
+    color === 'buttonText' && styles.colorTextButton,
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'appBarText' && styles.colorTextAppBar,
     color === 'primary' && styles.colorPrimary,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -10,20 +10,13 @@ import theme from '../theme';
 
 import Button from './SubmitButton.jsx';
 import Container from './Container.jsx';
+import Text from './Text.jsx';
 import FormikTextInput from './FormikTextInput.jsx';
 import { CREATE_REVIEW } from '../graphql/mutations';
 
 const styles = StyleSheet.create({
   formInput: {
-    backgroundColor: theme.colors.primary,
-    borderRadius: 5,
-    padding: 5,
-    marginHorizontal: 5,
     marginTop: 8,
-  },
-  submitButtonText: {
-    fontWeight: theme.fontWeights.bold,
-    color: 'white',
   },
 });
 
@@ -98,7 +91,7 @@ const CreateReview = () => {
           />
           <View style={{ marginTop: 5, opacity: (!dirty || !isValid) ? 0.3 : 0.9 }}>
             <Button style={{ marginTop: 5 }}onPress={handleSubmit}>
-              <Text style={styles.submitButtonText}>
+              <Text fontWeight='bold' color='buttonText'>
                 Create review
               </Text>
             </Button>

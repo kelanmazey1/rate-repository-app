@@ -11,6 +11,7 @@ import SignIn from './SignIn.jsx';
 import RepositoryList from './RepositoryList.jsx';
 import SingleRepository from './SingleRepository.jsx';
 import CreateReview from './CreateReview.jsx';
+import SignUp from './SignUp.jsx';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,10 +24,9 @@ const Main = () => (
   <View style={styles.container}>
     <AppBar />
     <Switch>
-      <Route exact path="/">
-        <RepositoryList />
-      </Route>
+      <Route exact path="/" component={RepositoryList} />
       <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/signup" component={SignUp} />
       <Route exact path="/createreview" component={CreateReview} />
       <Route exact path="/repositories/:id" render={(props) => <SingleRepository {...props} />} />
       <Redirect to="/" />
