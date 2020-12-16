@@ -86,7 +86,6 @@ const SingleRepository = (props) => {
     : [];
 
   const onEndReach = () => {
-    console.log('end of reviews');
     fetchMore();
   };
 
@@ -95,7 +94,7 @@ const SingleRepository = (props) => {
       data={reviewNodes}
       renderItem={({ item }) => <ReviewItem review={item} />}
       onEndReached={onEndReach}
-      onEndReachedThreshold={0.15}
+      onEndReachedThreshold={0.3}
       keyExtractor={(item) => item.id}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} loading={loading} />}
     />
