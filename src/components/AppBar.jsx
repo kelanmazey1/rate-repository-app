@@ -12,9 +12,12 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    justifyContent: 'space-evenly',
+    alignContent: 'center',
+    flexDirection: 'row',
     paddingTop: Constants.statusBarHeight + 5,
     paddingHorizontal: 10,
-    paddingBottom: 15,
+    paddingBottom: 10,
     backgroundColor: theme.colors.appBar,
   },
   scrollView: {
@@ -22,7 +25,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   tab: {
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
 });
 

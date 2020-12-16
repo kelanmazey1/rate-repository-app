@@ -87,6 +87,7 @@ const SignIn = () => {
       await signIn({ username, password });
       history.push('/');
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.log(e);
     }
   };

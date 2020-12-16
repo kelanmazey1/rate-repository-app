@@ -21,17 +21,17 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => (
-  <View style={styles.container}>
-    <AppBar />
-    <Switch>
-      <Route exact path="/" component={RepositoryList} />
-      <Route exact path="/signin" component={SignIn} />
-      <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/createreview" component={CreateReview} />
-      <Route exact path="/repositories/:id" render={(props) => <SingleRepository {...props} />} />
-      <Redirect to="/" />
-    </Switch>
-  </View>
+    <View style={styles.container}>
+      <AppBar />
+      <Switch>
+        <Route exact path="/" component={RepositoryList} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/createreview" component={CreateReview} />
+        <Route exact path="/repositories/:id" render={(props) => <SingleRepository {...props} />} />
+        <Redirect to="/" />
+      </Switch>
+    </View>
 );
 
 export default Main;

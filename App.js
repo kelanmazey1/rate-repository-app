@@ -1,5 +1,6 @@
 import React from 'react';
 import { NativeRouter } from 'react-router-native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import Main from './src/components/Main.jsx';
@@ -21,7 +22,9 @@ const App = () => {
         authState,
         setAuthState,
       }}>
-        <Main />
+        <PaperProvider>
+          <Main />
+        </PaperProvider>
       </AuthStorageContext.Provider>
     </ApolloProvider>
   </NativeRouter>
