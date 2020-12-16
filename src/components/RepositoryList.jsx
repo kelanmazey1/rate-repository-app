@@ -36,7 +36,7 @@ const ListHeaderComponent = ({ searchQuery, setSearchQuery, ...props }) => (
   </>
 );
 
-export const RepositoryListContainer = ({ repositories, ...props }) => {
+export const RepositoryListContainer = ({ repositories, onEndReach, ...props }) => {
   const repositoryNodes = repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
@@ -44,12 +44,13 @@ export const RepositoryListContainer = ({ repositories, ...props }) => {
   return (
       <FlatList
         data={repositoryNodes}
-        ItemSeparatorComponent={ItemSeparator}
-        // other props
-        ListHeaderComponent={<ListHeaderComponent {...props} />}
         renderItem={({ item }) => (
           <RepositoryItem item={item} />
         )}
+        ItemSeparatorComponent={ItemSeparator}
+        ListHeaderComponent={<ListHeaderComponent {...props} />}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
   );
 };
@@ -61,11 +62,20 @@ const RepositoryList = () => {
   });
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery] = useDebounce(searchQuery, 400);
-  const { repositories } = useRepositories(listOrder, debouncedQuery);
+
+  const { repositories } = useRepositories({
+    listOrder,
+    debouncedQuery,
+  });
+  
+  const onEndReach = () => {
+    console.log('The end is reached');
+  }
 
   return (
     <RepositoryListContainer
       repositories={repositories}
+      onEndReach={onEndReach}
       setSearchQuery={setSearchQuery}
       searchQuery={searchQuery}
       setListOrder={setListOrder}
