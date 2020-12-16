@@ -63,14 +63,15 @@ const RepositoryList = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedQuery] = useDebounce(searchQuery, 400);
 
-  const { repositories } = useRepositories({
+  const { repositories, fetchMore } = useRepositories({
+    first: 8,
     listOrder,
     debouncedQuery,
   });
-  
+
   const onEndReach = () => {
-    console.log('The end is reached');
-  }
+    fetchMore();
+  };
 
   return (
     <RepositoryListContainer

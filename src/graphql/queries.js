@@ -2,8 +2,8 @@
 import { gql } from 'apollo-boost';
 
 export const GET_REPOSITORIES = gql`
-  query fetchRepositories($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy, $searchKeyword: String) {
-    repositories(orderDirection:$orderDirection, orderBy:$orderBy, searchKeyword: $searchKeyword) {
+  query fetchRepositories($orderDirection: OrderDirection, $orderBy: AllRepositoriesOrderBy, $searchKeyword: String, $after: String, $first: Int) {
+    repositories(orderDirection:$orderDirection, orderBy:$orderBy, searchKeyword: $searchKeyword, after: $after, first: $first) {
       pageInfo {
         totalCount,
         hasNextPage,
@@ -41,7 +41,7 @@ export const CURRENT_USER = gql`
 `;
 
 export const GET_REPO = gql`
-  query GetRepo($id: ID!) {
+  query GetRepo($id: ID!, $first: Int, $after: String) {
     repository(id: $id) {
       url,
       fullName,
@@ -52,7 +52,7 @@ export const GET_REPO = gql`
       ratingAverage,
       ownerAvatarUrl,
       description
-      reviews {
+      reviews(first:$first, after: $after) {
         edges {
           node {
             id
@@ -65,6 +65,12 @@ export const GET_REPO = gql`
             }
           }
         }
+        pageInfo {
+          totalCount,
+          hasNextPage,
+          endCursor,
+          startCursor
+        } 
       }
     }
   }

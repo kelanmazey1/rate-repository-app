@@ -12,6 +12,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginTop: 2.5,
   },
+  blankCard: {
+    display: 'flex',
+    height: 250,
+    borderRadius: 15,
+    borderColor: '#002e47',
+    borderWidth: 1,
+    backgroundColor: '#d4d4d4',
+    marginHorizontal: 5,
+    marginTop: 2.5,
+  },
   container: {
     flex: 1,
     backgroundColor: theme.colors.backdrop,
@@ -30,6 +40,7 @@ const Container = ({ style, type, ...props }) => {
   const containerStyle = [
     styles.conatiner,
     type === 'card' && styles.card,
+    type === 'blankCard' && styles.blankCard,
     type === 'form' && styles.form,
     style,
   ];
