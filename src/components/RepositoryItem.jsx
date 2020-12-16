@@ -69,8 +69,6 @@ const RepositoryItem = ({ item, inFocus }) => {
     url,
   } = item;
 
-  // const goToUrl = () => console.log('the button was pressed');
-
   return (
     <Container type='card'>
       <TouchableOpacity

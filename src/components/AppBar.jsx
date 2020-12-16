@@ -12,8 +12,6 @@ import theme from '../theme';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    justifyContent: 'space-evenly',
-    alignContent: 'center',
     flexDirection: 'row',
     paddingTop: Constants.statusBarHeight + 5,
     paddingHorizontal: 10,
@@ -22,6 +20,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flexDirection: 'row',
+    justifyContent: 'center',
     flexGrow: 1,
   },
   tab: {
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
 
 const AppBarTab = (props) => (
   <View style={styles.tab}>
-    <Text fontSize='heading' fontWeight='bold'>{props.tab.title}</Text>
+    <Text fontSize='heading'>{props.tab.title}</Text>
   </View>
 );
 
@@ -73,6 +72,7 @@ const AppBar = () => {
   ];
 
   useEffect(() => {
+    // append correct tabs depending on if signed in
     setAppBarTabs(
       appBarTabs
         .filter((tab) => tab.title === 'Repositories')
