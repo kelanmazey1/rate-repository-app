@@ -8,20 +8,12 @@ const useSingleRepository = (variables) => {
     variables,
   });
 
-  console.log(variables);
 
   const handleFetchMore = () => {
     const canFetchMore = !loading && data && data.repository.reviews.pageInfo.hasNextPage;
-
-    console.log('------------------------------- new function call --------------------------');
-    console.log('canfetchMore', canFetchMore);
     if (!canFetchMore) {
       return;
     }
-    console.log('varibales with cursor', {
-      after: data.repository.reviews.pageInfo.endCursor,
-      ...variables,
-    });
 
     fetchMore({
       query: GET_REPO,
@@ -30,7 +22,6 @@ const useSingleRepository = (variables) => {
         ...variables,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        console.log('fetchMoreResult pageinfo', fetchMoreResult.repository.reviews.pageInfo);
         const nextResult = {
           repository: {
             ...fetchMoreResult.repository,

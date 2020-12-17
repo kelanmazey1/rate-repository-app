@@ -50,6 +50,10 @@ const AppBar = () => {
       link: '/createreview',
     },
     {
+      title: 'My Reviews',
+      link: '/myreviews',
+    },
+    {
       title: 'Sign Out',
       link: '/',
       onPress: async () => {

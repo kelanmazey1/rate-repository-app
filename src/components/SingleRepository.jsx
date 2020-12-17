@@ -53,7 +53,7 @@ const RepositoryInfo = (props) => {
   return <RepositoryItem item={props.repository} inFocus={true} />;
 };
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review, inUserReviews }) => {
   const parsedDate = new Date(Date.parse(review.createdAt));
 
   return (
@@ -63,7 +63,10 @@ const ReviewItem = ({ review }) => {
         <Text fontWeight='bold' style={[styles.rating]}>{review.rating}</Text>
       </View>
       <View style={[styles.userAndDate]}>
-      <Text fontWeight='bold'>{review.user.username}</Text>
+        <Text fontWeight='bold'>{inUserReviews
+          ? review.repository.fullName
+          : review.user.username }
+        </Text>
         <Text>{format(parsedDate, "dd'.'mm'.'yyyy")}</Text>
       </View>
     </View>

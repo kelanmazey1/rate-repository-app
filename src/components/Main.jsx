@@ -11,6 +11,7 @@ import SignIn from './SignIn.jsx';
 import RepositoryList from './RepositoryList.jsx';
 import SingleRepository from './SingleRepository.jsx';
 import CreateReview from './CreateReview.jsx';
+import UserReviews from './UserReviews.jsx';
 import SignUp from './SignUp.jsx';
 
 const styles = StyleSheet.create({
@@ -28,6 +29,7 @@ const Main = () => (
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/createreview" component={CreateReview} />
+        <Route exact path="/myreviews" component={UserReviews} />
         <Route exact path="/repositories/:id" render={(props) => <SingleRepository {...props} />} />
         <Redirect to="/" />
       </Switch>
