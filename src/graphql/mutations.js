@@ -17,11 +17,16 @@ mutation CreateReview($repositoryName: String!, $ownerName: String!, $rating: In
    rating: $rating,
     text: $text
   }) {
+    id
+    rating
     repository {
-      id,
+      id
+      fullName
+      ownerName
     },
+    text
     user {
-      id,
+      id
       username
     }
   }
@@ -36,4 +41,10 @@ mutation CreateUser($username: String!, $password: String!) {
     createdAt
   }
 }
+`;
+
+export const DELETE_REVIEW = gql`
+  mutation DeleteReview($id: ID!) {
+    deleteReview(id: $id)
+  }
 `;

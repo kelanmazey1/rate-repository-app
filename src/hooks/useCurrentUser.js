@@ -3,8 +3,12 @@ import { useQuery } from '@apollo/react-hooks';
 import { CURRENT_USER } from '../graphql/queries';
 
 const useCurrentUser = (variables) => {
-  const { loading, data, fetchMore } = useQuery(CURRENT_USER, {
-    fetchPolicy: 'cache-and-network',
+  const {
+    loading,
+    data,
+    fetchMore,
+  } = useQuery(CURRENT_USER, {
+    fetchPolicy: 'network',
     variables,
   });
 

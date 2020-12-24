@@ -8,7 +8,6 @@ const useSingleRepository = (variables) => {
     variables,
   });
 
-
   const handleFetchMore = () => {
     const canFetchMore = !loading && data && data.repository.reviews.pageInfo.hasNextPage;
     if (!canFetchMore) {

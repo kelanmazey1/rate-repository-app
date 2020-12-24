@@ -3,7 +3,10 @@ import { View, StyleSheet } from 'react-native';
 import { useHistory } from 'react-router-native';
 
 import { Formik } from 'formik';
+import { useApolloClient } from '@apollo/react-hooks';
 import * as yup from 'yup';
+
+import { CURRENT_USER } from '../graphql/queries';
 
 import useSignIn from '../hooks/useSignIn';
 import Text from './Text.jsx';
@@ -79,19 +82,24 @@ export const SignInContainer = ({ onSubmit }) => {
 const SignIn = () => {
   const [signIn] = useSignIn();
   const history = useHistory();
+  // using the client to manually fetch user details as useLazyQuery doesn't seem to work
+  const client = useApolloClient();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
 
     try {
       await signIn({ username, password });
+      await client.query({
+        query: CURRENT_USER,
+        variables: { includeReviews: true, first: 8 },
+      });
       history.push('/');
     } catch (e) {
       // eslint-disable-next-line no-console
       console.log(e);
     }
   };
-
   return (
     <SignInContainer
       onSubmit={onSubmit}

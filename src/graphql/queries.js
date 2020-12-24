@@ -40,10 +40,14 @@ export const CURRENT_USER = gql`
         edges {
           node {
             id
+            userId
+            repositoryId
             user {
+              id
               username
             }
             repository {
+              id
               fullName
               ownerName
             }

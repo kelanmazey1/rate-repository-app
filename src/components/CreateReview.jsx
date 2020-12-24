@@ -3,16 +3,13 @@ import { StyleSheet, View } from 'react-native';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-native';
-
-import theme from '../theme';
 
 import Button from './SubmitButton.jsx';
 import Container from './Container.jsx';
 import Text from './Text.jsx';
 import FormikTextInput from './FormikTextInput.jsx';
-import { CREATE_REVIEW } from '../graphql/mutations';
+import useSubmitReview from '../hooks/useSubmitReview';
 
 const styles = StyleSheet.create({
   formInput: {
@@ -21,9 +18,8 @@ const styles = StyleSheet.create({
 });
 
 const CreateReview = () => {
-  const [submitReview] = useMutation(CREATE_REVIEW);
+  const [createReview] = useSubmitReview();
   const history = useHistory();
-
   const validationSchema = yup.object().shape({
     ownerName: yup
       .string()
@@ -55,14 +51,13 @@ const CreateReview = () => {
         rating,
         review,
       }) => {
-        await submitReview({
-          variables: {
-            repositoryName,
-            ownerName,
-            rating: parseInt(rating, 10),
-            text: review,
-          },
+        await createReview({
+          repositoryName,
+          ownerName,
+          rating: parseInt(rating, 10),
+          text: review,
         });
+
         history.push(`/repositories/${ownerName}.${repositoryName}`);
       }}
     >

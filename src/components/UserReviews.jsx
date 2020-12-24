@@ -3,7 +3,7 @@ import { FlatList } from 'react-native';
 
 import useCurrentUser from '../hooks/useCurrentUser';
 
-import { ReviewItem } from './SingleRepository.jsx';
+import ReviewItem from './ReviewItem.jsx';
 
 const UserReviews = () => {
   const { authorizedUser, fetchMore } = useCurrentUser({
@@ -15,8 +15,6 @@ const UserReviews = () => {
     : [];
 
   const onEndReach = () => {
-    // eslint-disable-next-line no-console
-    console.log('end of list');
     fetchMore();
   };
 
